@@ -1,0 +1,71 @@
+from tkinter import *
+from PIL import ImageTk,Image
+root = Tk()
+root.title(" Image Viewer ")
+my_img1= ImageTk.PhotoImage(Image.open("/home/vansh/Pictures/images.jpg/one_piece.jpeg"))
+my_img2= ImageTk.PhotoImage(Image.open("/home/vansh/Pictures/images.jpg/metallica.jpeg"))
+my_img3= ImageTk.PhotoImage(Image.open("/home/vansh/Pictures/images.jpg/micro.jpeg"))
+my_img4= ImageTk.PhotoImage(Image.open("/home/vansh/Pictures/images.jpg/index.jpeg"))
+
+
+img_lst=[my_img1,my_img2,my_img3,my_img4]
+
+my_label = Label(image=my_img1)
+my_label.grid(row=0,column=0,columnspan=3)
+
+
+def forward(image_number):
+    global button_forw
+    global button_back
+    global my_label
+
+    my_label.grid_forget()
+    my_label=Label(image=img_lst[image_number-1])
+    button_forw = Button(root,text =">>",command=lambda:forward(image_number+1))
+    button_back = Button(root, text = "<<",command=lambda:back(image_number-1))
+
+    button_forw.grid(row=1,column=2)
+    button_back.grid(row=1,column=0)
+
+
+
+
+        
+        
+def back():
+    global i
+    global my_label
+    i-=1
+    if i < 0:
+        print("CANNOT GO FURTHER ")
+        i+=1
+    else:
+        my_label.grid_forget()
+        my_label = Label(image=img_lst[i])
+        my_label.grid(row=0,column=0,columnspan=3)
+    
+
+
+
+
+
+
+button_back = Button(root, text = "<<",command=back)
+button_forw = Button(root,text =">>",command=lambda:forward(2))
+
+
+button_quit= Button(root,text='EXIT ',command=root.quit)
+button_quit.grid(row=1,column=1)
+button_forw.grid(row=1,column=2)
+button_back.grid(row=1,column=0)
+                 
+
+
+root.mainloop()
+
+
+
+
+
+
+
